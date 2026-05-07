@@ -2,6 +2,7 @@ const inputValue = document.getElementById("inputTask");
 const btnTambah = document.getElementById("btnTambahTodo");
 const daftarTugas = document.getElementById("listTasks");
 const daftarProgress = document.getElementById("listInProgress");
+const daftarDone = document.getElementById("listDone");
 
 btnTambah.addEventListener("click", function() {
 	if (inputValue.value === "") {
