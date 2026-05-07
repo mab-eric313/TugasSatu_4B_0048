@@ -12,6 +12,7 @@ btnTambah.addEventListener("click", function() {
 
 	const listBaru = document.createElement("li");
 	const span = document.createElement("span");
+	const newDiv = document.createElement("div");
 	span.innerHTML = inputValue.value;
 
 	listBaru.appendChild(span);
