@@ -1,5 +1,29 @@
 // TODO: buat newButtonDelete berfungsi
 
+function eventListener(listBaruDone, spanDone, newDivDone, newButtonProgress, newButtonDeleteDone, inputValue, spanTask, daftarDone, listBaruProgress, newDivProgress) {
+	if (inputValue === null) {
+		spanDone.innerHTML = spanTask.innerHTML;
+		newButtonDeleteDone.innerHTML = "✖️";
+	} else {
+		spanDone.innerHTML = inputValue.value;
+		newButtonDeleteDone.innerHTML = "✖️";
+	}
+
+	if (newButtonProgress !== null) {
+		newButtonProgress.innerHTML = "✔️";
+		newDivDone.appendChild(newButtonProgress)
+	}
+
+	newDivDone.appendChild(newButtonDeleteDone);
+	newDivDone.appendChild(spanDone)
+
+	listBaruDone.appendChild(newDivDone);
+	daftarDone.appendChild(listBaruDone);
+
+	if (listBaruProgress !== null && newDivProgress !== null)
+		listBaruProgress.removeChild(newDivProgress);
+}
+
 const inputValue = document.getElementById("inputTask");
 const btnTambah = document.getElementById("btnTambahTodo");
 const daftarTugas = document.getElementById("listTasks");
@@ -17,17 +41,8 @@ btnTambah.addEventListener("click", function() {
 	const newDivTask = document.createElement("div");
 	const newButtonTask = document.createElement("button")
 	const newButtonDeleteTask = document.createElement("button")
-
-	spanTask.innerHTML = inputValue.value;
-	newButtonTask.innerHTML = "✔️";
-	newButtonDeleteTask.innerHTML = "✖️";
-
-	newDivTask.appendChild(newButtonTask);
-	newDivTask.appendChild(newButtonDeleteTask);
-	newDivTask.appendChild(spanTask)
-
-	listBaruTask.appendChild(newDivTask);
-	daftarTugas.appendChild(listBaruTask);
+	
+	eventListener(listBaruTask, spanTask, newDivTask, newButtonTask, newButtonDeleteTask, inputValue, null, daftarTugas, null, null);
 
 	inputValue.value = "";
 	inputValue.focus();
@@ -39,18 +54,7 @@ btnTambah.addEventListener("click", function() {
 		const newButtonProgress = document.createElement("button")
 		const newButtonDeleteProgress = document.createElement("button")
 
-		spanProgress.innerHTML = spanTask.innerHTML;
-		newButtonProgress.innerHTML = "✔️";
-		newButtonDeleteProgress.innerHTML = "✖️";
-
-		newDivProgress.appendChild(newButtonProgress);
-		newDivProgress.appendChild(newButtonDeleteProgress);
-		newDivProgress.appendChild(spanProgress)
-
-		listBaruProgress.appendChild(newDivProgress);
-		daftarProgress.appendChild(listBaruProgress);
-
-		listBaruTask.removeChild(newDivTask);
+		eventListener(listBaruProgress, spanProgress, newDivProgress, newButtonProgress, newButtonDeleteProgress, null, spanTask, daftarProgress, listBaruTask, newDivTask);
 
 		newButtonProgress.addEventListener("click", function() {
 			const listBaruDone = document.createElement("li");
@@ -58,16 +62,7 @@ btnTambah.addEventListener("click", function() {
 			const newDivDone = document.createElement("div");
 			const newButtonDeleteDone = document.createElement("button")
 
-			spanDone.innerHTML = spanTask.innerHTML;
-			newButtonDeleteDone.innerHTML = "✖️";
-
-			newDivDone.appendChild(newButtonDeleteDone);
-			newDivDone.appendChild(spanDone)
-
-			listBaruDone.appendChild(newDivDone);
-			daftarDone.appendChild(listBaruDone);
-
-			listBaruProgress.removeChild(newDivProgress);
+			eventListener(listBaruDone, spanDone, newDivDone, null, newButtonDeleteDone, null, spanTask, daftarDone, listBaruProgress, newDivProgress);
 		});
 	});
 });
