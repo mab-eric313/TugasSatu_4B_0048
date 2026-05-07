@@ -1,5 +1,5 @@
-// TODO: buat newButtonDelete berfungsi
-
+// TODO: (eventListener()) sesuaikan nama-nama variabel/parameter
+// TODO: (eventListener()) optimalkan penggunaan parameter yang berlebih dengan objects
 function eventListener(listBaruDone, spanDone, newDivDone, newButtonProgress, newButtonDeleteDone, inputValue, spanTask, daftarDone, listBaruProgress, newDivProgress) {
 	if (inputValue === null) {
 		spanDone.innerHTML = spanTask.innerHTML;
@@ -22,6 +22,10 @@ function eventListener(listBaruDone, spanDone, newDivDone, newButtonProgress, ne
 
 	if (listBaruProgress !== null && newDivProgress !== null)
 		listBaruProgress.removeChild(newDivProgress);
+
+	newButtonDeleteDone.addEventListener("click", function() {
+		listBaruDone.removeChild(newDivDone);
+	});
 }
 
 const inputValue = document.getElementById("inputTask");
