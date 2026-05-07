@@ -1,0 +1,17 @@
+diff --git a/index.html b/index.html
+index 7a35f6e..af0eee3 100644
+--- a/index.html
++++ b/index.html
+@@ -17,10 +17,8 @@
+ 		</div>
+ 
+ 		<h3>Tasks</h3>
+-
+-		<ul id="listTugas">
+-
+-		</ul>
++		<ul id="listTugas"></ul>
++		<h3>In Progress</h3>
+ 	</div>
+ 	<script src="script.js"></script>
+ </body>
