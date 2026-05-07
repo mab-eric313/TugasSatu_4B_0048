@@ -1,3 +1,5 @@
+// TODO: buat newButtonDelete berfungsi
+
 const inputValue = document.getElementById("inputTask");
 const btnTambah = document.getElementById("btnTambahTodo");
 const daftarTugas = document.getElementById("listTasks");
@@ -31,23 +33,41 @@ btnTambah.addEventListener("click", function() {
 	inputValue.focus();
 	
 	newButtonTask.addEventListener("click", function() {
-		const listBaru = document.createElement("li");
-		const span = document.createElement("span");
-		const newDiv = document.createElement("div");
-		const newButton = document.createElement("button")
-		const newButtonDelete = document.createElement("button")
+		const listBaruProgress = document.createElement("li");
+		const spanProgress = document.createElement("span");
+		const newDivProgress = document.createElement("div");
+		const newButtonProgress = document.createElement("button")
+		const newButtonDeleteProgress = document.createElement("button")
 
-		span.innerHTML = spanTask.innerHTML;
-		newButton.innerHTML = "✔️";
-		newButtonDelete.innerHTML = "✖️";
+		spanProgress.innerHTML = spanTask.innerHTML;
+		newButtonProgress.innerHTML = "✔️";
+		newButtonDeleteProgress.innerHTML = "✖️";
 
-		newDiv.appendChild(newButton);
-		newDiv.appendChild(newButtonDelete);
-		newDiv.appendChild(span)
+		newDivProgress.appendChild(newButtonProgress);
+		newDivProgress.appendChild(newButtonDeleteProgress);
+		newDivProgress.appendChild(spanProgress)
 
-		listBaru.appendChild(newDiv);
-		daftarProgress.appendChild(listBaru);
+		listBaruProgress.appendChild(newDivProgress);
+		daftarProgress.appendChild(listBaruProgress);
 
 		listBaruTask.removeChild(newDivTask);
+
+		newButtonProgress.addEventListener("click", function() {
+			const listBaruDone = document.createElement("li");
+			const spanDone = document.createElement("span");
+			const newDivDone = document.createElement("div");
+			const newButtonDeleteDone = document.createElement("button")
+
+			spanDone.innerHTML = spanTask.innerHTML;
+			newButtonDeleteDone.innerHTML = "✖️";
+
+			newDivDone.appendChild(newButtonDeleteDone);
+			newDivDone.appendChild(spanDone)
+
+			listBaruDone.appendChild(newDivDone);
+			daftarDone.appendChild(listBaruDone);
+
+			listBaruProgress.removeChild(newDivProgress);
+		});
 	});
 });
