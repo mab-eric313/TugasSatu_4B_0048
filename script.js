@@ -1,6 +1,6 @@
 const inputValue = document.getElementById("inputTask");
 const btnTambah = document.getElementById("btnTambahTodo");
-const daftarTugas = document.getElementById("listTugas");
+const daftarTugas = document.getElementById("listTasks");
 
 btnTambah.addEventListener("click", function() {
 	if (inputValue.value === "") {
