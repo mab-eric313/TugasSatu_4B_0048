@@ -17,6 +17,8 @@ btnTambah.addEventListener("click", function() {
 	span.innerHTML = inputValue.value;
 	newButton.innerHTML = "✔️";
 
+	newDiv.appendChild(newButton);
+
 	listBaru.appendChild(span);
 	daftarTugas.appendChild(listBaru);
 
