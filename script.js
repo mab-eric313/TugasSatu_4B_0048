@@ -14,6 +14,8 @@ btnTambah.addEventListener("click", function() {
 	const span = document.createElement("span");
 	const newDiv = document.createElement("div");
 	const newButton = document.createElement("button")
+	const newButtonDelete = document.createElement("button")
+
 	span.innerHTML = inputValue.value;
 	newButton.innerHTML = "✔️";
 
