@@ -20,7 +20,7 @@ btnTambah.addEventListener("click", function() {
 	newDiv.appendChild(newButton);
 	newDiv.appendChild(span)
 
-	listBaru.appendChild(span);
+	listBaru.appendChild(newDiv);
 	daftarTugas.appendChild(listBaru);
 
 	inputValue.value = "";
