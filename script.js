@@ -18,8 +18,10 @@ btnTambah.addEventListener("click", function() {
 
 	span.innerHTML = inputValue.value;
 	newButton.innerHTML = "✔️";
+	newButtonDelete.innerHTML = "✖️";
 
 	newDiv.appendChild(newButton);
+	newDiv.appendChild(newButtonDelete);
 	newDiv.appendChild(span)
 
 	listBaru.appendChild(newDiv);
