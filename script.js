@@ -2,56 +2,55 @@
 // 		 task
 // TODO: MEDIUM (eventListener()) ketika user meng-click edit kemudian hapus, tidak 
 // 		 sinkron dengan inputTask, inputDate, btnTambahTodo
-// TODO: HIGH (eventListener()) sesuaikan nama-nama variabel/parameter
-// TODO: HIGH (eventListener()) optimalkan penggunaan parameter yang berlebih dengan
+// TODO: HIGH (eventListener() & eventObject) sesuaikan nama-nama variabel/parameter
 // 		 objects
-function eventListener(listBaruDone, spanDone, spanDateDone, newDivDone, newButtonProgress, newButtonDeleteDone, newButtonEditDone, inputValue, inputDate, spanTask, daftarDone, btnTambah, divFormTodo, listBaruProgress, newDivProgress) {
-	if (inputValue === null) {
-		spanDone.innerHTML = spanTask.innerHTML;
-		newButtonDeleteDone.innerHTML = "✖️";
+function eventListener(eventObject) {
+	if (eventObject.inputValue === null) {
+		eventObject.spanDone.innerHTML = eventObject.spanTask.innerHTML;
+		eventObject.newButtonDeleteDone.innerHTML = "✖️";
 	} else {
-		spanDone.innerHTML = inputValue.value;
-		newButtonDeleteDone.innerHTML = "✖️";
+		eventObject.spanDone.innerHTML = eventObject.inputValue.value;
+		eventObject.newButtonDeleteDone.innerHTML = "✖️";
 	}
 
-	if (newButtonProgress !== null) {
-		newButtonProgress.innerHTML = "✔️";
-		newDivDone.appendChild(newButtonProgress)
+	if (eventObject.newButtonProgress !== null) {
+		eventObject.newButtonProgress.innerHTML = "✔️";
+		eventObject.newDivDone.appendChild(eventObject.newButtonProgress)
 	}
 
-	newButtonEditDone.innerHTML = "✏️";
-	spanDateDone.innerHTML = inputDate.value;
+	eventObject.newButtonEditDone.innerHTML = "✏️";
+	eventObject.spanDateDone.innerHTML = eventObject.inputDate.value;
 
-	newDivDone.appendChild(newButtonDeleteDone);
-	newDivDone.appendChild(newButtonEditDone)
-	newDivDone.appendChild(spanDone)
-	newDivDone.appendChild(spanDateDone)
+	eventObject.newDivDone.appendChild(eventObject.newButtonDeleteDone);
+	eventObject.newDivDone.appendChild(eventObject.newButtonEditDone)
+	eventObject.newDivDone.appendChild(eventObject.spanDone)
+	eventObject.newDivDone.appendChild(eventObject.spanDateDone)
 
-	listBaruDone.appendChild(newDivDone);
-	daftarDone.appendChild(listBaruDone);
+	eventObject.listBaruDone.appendChild(eventObject.newDivDone);
+	eventObject.daftarDone.appendChild(eventObject.listBaruDone);
 
-	if (listBaruProgress !== null && newDivProgress !== null)
-		listBaruProgress.removeChild(newDivProgress);
+	if (eventObject.listBaruProgress !== null && eventObject.newDivProgress !== null)
+		eventObject.listBaruProgress.removeChild(eventObject.newDivProgress);
 
-	newButtonDeleteDone.addEventListener("click", function() {
-		listBaruDone.removeChild(newDivDone);
+	eventObject.newButtonDeleteDone.addEventListener("click", function() {
+		eventObject.listBaruDone.removeChild(eventObject.newDivDone);
 	});
 
-	newButtonEditDone.addEventListener("click", function() {
-		inputValue.value = spanDone.innerHTML;
-		inputDate.value = spanDateDone.innerHTML;
-		btnTambah.remove()
+	eventObject.newButtonEditDone.addEventListener("click", function() {
+		eventObject.inputValue.value = eventObject.spanDone.innerHTML;
+		eventObject.inputDate.value = eventObject.spanDateDone.innerHTML;
+		eventObject.btnTambah.remove()
 
 		const btnEdit = document.createElement("button");
 		btnEdit.innerHTML = "Edit";
-		divFormTodo.appendChild(btnEdit);
+		eventObject.divFormTodo.appendChild(btnEdit);
 
 		btnEdit.addEventListener("click", function() {
-			spanDone.innerHTML = inputValue.value;
-			spanDateDone.innerHTML = inputDate.value;
+			eventObject.spanDone.innerHTML = eventObject.inputValue.value;
+			eventObject.spanDateDone.innerHTML = eventObject.inputDate.value;
 			btnEdit.remove()
 
-			divFormTodo.appendChild(btnTambah);
+			eventObject.divFormTodo.appendChild(eventObject.btnTambah);
 		});
 	});
 }
@@ -63,6 +62,24 @@ const daftarTugas = document.getElementById("listTasks");
 const daftarProgress = document.getElementById("listInProgress");
 const daftarDone = document.getElementById("listDone");
 const divFormTodo = document.getElementById("formTodo");
+
+let eventObject = {
+	listBaruDone: document.createElement("li"), 
+	spanDone: document.createElement("span"), 
+	spanDateDone: document.createElement("span"), 
+	newDivDone: document.createElement("div"), 
+	newButtonProgress: document.createElement("button"), 
+	newButtonDeleteDone: document.createElement("button"), 
+	newButtonEditDone: document.createElement("button"), 
+	inputValue: document.getElementById("inputTask"), 
+	inputDate: document.getElementById("inputDate"), 
+	spanTask: null, 
+	daftarDone: document.getElementById("listDone"), 
+	btnTambah: document.getElementById("btnTambahTodo"), 
+	divFormTodo: document.getElementById("formTodo"), 
+	listBaruProgress: null,
+	newDivProgress: null,
+}
 
 btnTambah.addEventListener("click", function() {
 	if (inputValue.value === "") {
@@ -77,8 +94,32 @@ btnTambah.addEventListener("click", function() {
 	const newButtonTask = document.createElement("button")
 	const newButtonDeleteTask = document.createElement("button")
 	const newButtonEditTask = document.createElement("button")
+
+	eventListener(
+		eventObject = {
+			listBaruDone: listBaruTask, 
+			spanDone: spanTask, 
+			spanDateDone: spanDateTask, 
+			newDivDone: newDivTask, 
+			newButtonProgress: newButtonTask, 
+			newButtonDeleteDone: newButtonDeleteTask, 
+			newButtonEditDone: newButtonEditTask, 
+			inputValue: inputValue, 
+			inputDate: inputDate, 
+			spanTask: null, 
+			daftarDone: daftarTugas, 
+			btnTambah: btnTambah, 
+			divFormTodo: divFormTodo, 
+			listBaruProgress: null,
+			newDivProgress: null,
+		}
+	);
 	
-	eventListener(listBaruTask, spanTask, spanDateTask, newDivTask, newButtonTask, newButtonDeleteTask, newButtonEditTask, inputValue, inputDate, null, daftarTugas, btnTambah, divFormTodo, null, null);
+	// eventListener(
+	// 	listBaruTask, spanTask, spanDateTask, newDivTask, newButtonTask, 
+	// 	newButtonDeleteTask, newButtonEditTask, inputValue, inputDate, null, 
+	// 	daftarTugas, btnTambah, divFormTodo, null, null
+	// );
 
 	inputValue.focus();
 	
@@ -91,7 +132,33 @@ btnTambah.addEventListener("click", function() {
 		const newButtonDeleteProgress = document.createElement("button")
 		const newButtonEditProgress = document.createElement("button")
 
-		eventListener(listBaruProgress, spanProgress, spanDateProgress, newDivProgress, newButtonProgress, newButtonDeleteProgress, newButtonEditProgress, inputValue, inputDate, spanTask, daftarProgress, btnTambah, divFormTodo, listBaruTask, newDivTask);
+		eventListener(
+			eventObject = {
+				listBaruDone: listBaruProgress, 
+				spanDone: spanProgress, 
+				spanDateDone: spanDateProgress, 
+				newDivDone: newDivProgress, 
+				newButtonProgress: newButtonProgress, 
+				newButtonDeleteDone: newButtonDeleteProgress, 
+				newButtonEditDone: newButtonEditProgress, 
+				inputValue: inputValue, 
+				inputDate: inputDate, 
+				spanTask: spanTask, 
+				daftarDone: daftarProgress, 
+				btnTambah: btnTambah, 
+				divFormTodo: divFormTodo, 
+				listBaruProgress: listBaruTask,
+				newDivProgress: newDivTask,
+			}
+		);
+
+		// eventListener(
+		// 	listBaruProgress, spanProgress, spanDateProgress, newDivProgress, 
+		// 	newButtonProgress, newButtonDeleteProgress, newButtonEditProgress, 
+		// 	inputValue, inputDate, spanTask, daftarProgress, btnTambah, divFormTodo,
+		// 	listBaruTask, newDivTask
+		// );
+
 
 		newButtonProgress.addEventListener("click", function() {
 			const listBaruDone = document.createElement("li");
@@ -101,7 +168,32 @@ btnTambah.addEventListener("click", function() {
 			const newButtonDeleteDone = document.createElement("button")
 			const newButtonEditDone = document.createElement("button")
 
-			eventListener(listBaruDone, spanDone, spanDateDone, newDivDone, null, newButtonDeleteDone, newButtonEditDone, inputValue, inputDate, spanTask, daftarDone, btnTambah, divFormTodo, listBaruProgress, newDivProgress);
+			eventListener(
+				eventObject = {
+					listBaruDone: listBaruDone, 
+					spanDone: spanDone, 
+					spanDateDone: spanDateDone, 
+					newDivDone: newDivDone, 
+					newButtonProgress: null, 
+					newButtonDeleteDone: newButtonDeleteDone, 
+					newButtonEditDone: newButtonEditDone, 
+					inputValue: inputValue, 
+					inputDate: inputDate, 
+					spanTask: spanTask, 
+					daftarDone: daftarDone, 
+					btnTambah: btnTambah, 
+					divFormTodo: divFormTodo, 
+					listBaruProgress: listBaruProgress,
+					newDivProgress: newDivProgress,
+				}
+			);
+
+			// eventListener(
+			// 	listBaruDone, spanDone, spanDateDone, newDivDone, null, 
+			// 	newButtonDeleteDone, newButtonEditDone, inputValue, inputDate, 
+			// 	spanTask, daftarDone, btnTambah, divFormTodo, listBaruProgress, 
+			// 	newDivProgress
+			// );
 		});
 	});
 });
